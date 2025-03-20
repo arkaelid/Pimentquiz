@@ -1,0 +1,99 @@
+<div class="container fade-in">
+  <h1 class="text-center mt-4 mb-5">🔥 Résultats du Challenge Piquant 🔥</h1>
+  
+  <!-- Section du podium pour le top 3 -->
+  <div class="podium mb-5" *ngIf="topThree.length > 0">
+    <h2 class="text-center mb-4">Hall de la Flamme</h2>
+    
+    <div class="row justify-content-center">
+      <!-- 2ème place -->
+      <div class="col-md-3" *ngIf="topThree.length > 1">
+        <div class="podium-item second-place">
+          <div class="position">2</div>
+          <div class="heat-crown medium">
+            <i class="bi bi-fire"></i><i class="bi bi-fire"></i>
+          </div>
+          <div class="participant-name">{{ topThree[1].name }}</div>
+          <div class="pepper-score">
+            <span *ngFor="let i of getScoreArray(topThree[1].score)">🌶️</span>
+          </div>
+          <div class="score">{{ topThree[1].score }} <span class="score-label">points piquants</span></div>
+          <div class="heat-level">Piment Moyen</div>
+        </div>
+      </div>
+      
+      <!-- 1ère place -->
+      <div class="col-md-4" *ngIf="topThree.length > 0">
+        <div class="podium-item first-place">
+          <div class="crown">👑</div>
+          <div class="position">1</div>
+          <div class="heat-crown extra-hot">
+            <i class="bi bi-fire"></i><i class="bi bi-fire"></i><i class="bi bi-fire"></i>
+          </div>
+          <div class="participant-name">{{ topThree[0].name }}</div>
+          <div class="pepper-score">
+            <span *ngFor="let i of getScoreArray(topThree[0].score)">🌶️</span>
+          </div>
+          <div class="score">{{ topThree[0].score }} <span class="score-label">points piquants</span></div>
+          <div class="heat-level">Piment Extra-Fort</div>
+        </div>
+      </div>
+      
+      <!-- 3ème place -->
+      <div class="col-md-3" *ngIf="topThree.length > 2">
+        <div class="podium-item third-place">
+          <div class="position">3</div>
+          <div class="heat-crown mild">
+            <i class="bi bi-fire"></i>
+          </div>
+          <div class="participant-name">{{ topThree[2].name }}</div>
+          <div class="pepper-score">
+            <span *ngFor="let i of getScoreArray(topThree[2].score)">🌶️</span>
+          </div>
+          <div class="score">{{ topThree[2].score }} <span class="score-label">points piquants</span></div>
+          <div class="heat-level">Piment Doux</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Tableau des autres participants -->
+  <div class="other-participants mb-5" *ngIf="otherParticipants.length > 0">
+    <h3 class="text-center mb-4">Autres amateurs de piment</h3>
+    
+    <div class="card spicy-bg">
+      <div class="card-body">
+        <table class="table spicy-table">
+          <thead>
+            <tr>
+              <th>Position</th>
+              <th>Nom</th>
+              <th>Niveau de piquant</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let participant of otherParticipants; let i = index">
+              <td>{{ i + 4 }}</td>
+              <td>{{ participant.name }}</td>
+              <td>
+                <div class="pepper-meter" [ngClass]="getHeatClass(participant.score)">
+                  <span *ngFor="let i of getScoreArray(participant.score)">🌶️</span>
+                </div>
+              </td>
+              <td>{{ participant.score }} pts</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  <div class="actions text-center">
+    <div class="flame-button">
+      <button class="btn btn-primary btn-lg pulse-button" (click)="restartQuiz()">
+        <i class="bi bi-arrow-repeat me-2"></i> Nouveau Challenge Piquant
+      </button>
+    </div>
+  </div>
+</div>

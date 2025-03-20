@@ -1,0 +1,136 @@
+@media (max-width: 768px) {
+  .spicy-meter {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.participant-row {
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateX(5px);
+  }
+}
+
+.input-group-append {
+  margin-left: 10px;
+}
+
+.btn-outline-primary, .btn-outline-danger {
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-outline-primary {
+  padding: 0.5rem 1.5rem;
+}
+
+.participants-list {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.bg-gradient {
+  background: linear-gradient(135deg, var(--hot-color), var(--extra-hot-color));
+  padding: 1.5rem;
+  color: white;
+}
+
+.spicy-icon {
+  background-color: white;
+  border: 2px solid var(--primary-light);
+  border-right: none;
+  font-size: 1.2rem;
+}
+
+.spicy-button {
+  position: relative;
+  overflow: hidden;
+  
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(45deg, transparent 25%, rgba(255,255,255,0.2) 50%, transparent 75%);
+    background-size: 200% 200%;
+    animation: shimmer 2s infinite linear;
+    z-index: -1;
+  }
+}
+
+.spicy-meter {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  border-radius: 30px;
+  padding: 10px;
+  background-color: rgba(255,255,255,0.7);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.spicy-level {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: 600;
+  position: relative;
+  
+  &::before {
+    content: "🌶️";
+    margin-right: 4px;
+  }
+  
+  &.mild::before {
+    content: "🌶️";
+  }
+  
+  &.medium::before {
+    content: "🌶️🌶️";
+  }
+  
+  &.hot::before {
+    content: "🌶️🌶️🌶️";
+  }
+  
+  &.extra-hot::before {
+    content: "🌶️🌶️🌶️🌶️";
+  }
+}
+
+.pulse-button {
+  animation: pulse 2s infinite;
+  
+  &:hover {
+    animation: none;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

@@ -1,1 +1,194 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary-color: #e74c3c; /* Rouge piment */
+  --primary-light: #ff7979; /* Rouge piment clair */
+  --secondary-color: #2ecc71; /* Vert piment */
+  --accent-color: #f39c12; /* Jaune piment */
+  --mild-color: #f1c40f; /* Jaune doux - piment doux */
+  --medium-color: #e67e22; /* Orange - piment moyen */
+  --hot-color: #b5473a; /* Rouge - piment fort */
+  --extra-hot-color: #c0392b; /* Rouge foncé - piment très fort */
+  --text-dark: #2d3436;
+  --text-light: #636e72;
+  --background-light: #f8f9fa;
+  --background-spicy: #fff5f5; /* Fond légèrement rougeâtre */
+  --danger-color: #c0392b;
+  --success-color: #27ae60;
+  --border-radius: 12px;
+  --box-shadow: 0 10px 20px rgba(231, 76, 60, 0.1);
+  --transition: all 0.3s ease;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background-spicy);
+  color: var(--text-dark);
+  line-height: 1.6;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 22.5c0 5.5-4.5 10-10 10s-10-4.5-10-10 4.5-10 10-10 10 4.5 10 10zm0 0c0-5.5 4.5-10 10-10s10 4.5 10 10-4.5 10-10 10-10-4.5-10-10zm-37.5 30v-22.5c0-5.5 4.5-10 10-10s10 4.5 10 10v22.5h-5v-22.5c0-2.5-2.5-5-5-5s-5 2.5-5 5v22.5h-5zm65 0v-22.5c0-5.5-4.5-10-10-10s-10 4.5-10 10v22.5h-5v-22.5c0-2.5 2.5-5 5-5s5 2.5 5 5v22.5h15z' fill='%23e74c3c' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.container {
+  padding: 2rem 1rem;
+  max-width: 900px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.card {
+  border: none;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+  transition: var(--transition);
+  background-color: white;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(231, 76, 60, 0.2);
+  }
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+.btn {
+  border-radius: 50px;
+  padding: 0.6rem 1.5rem;
+  font-weight: 500;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  
+  &:hover, &:focus {
+    background-color: var(--extra-hot-color);
+    border-color: var(--extra-hot-color);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+  }
+}
+
+.btn-outline-primary {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+  
+  &:hover, &:focus {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+  }
+}
+
+.btn-danger, .btn-outline-danger {
+  background-color: var(--danger-color);
+  border-color: var(--danger-color);
+  color: white;
+  
+  &:hover, &:focus {
+    background-color: darken(#c0392b, 10%);
+    border-color: darken(#c0392b, 10%);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(192, 57, 43, 0.4);
+  }
+}
+
+.btn-outline-danger {
+  background-color: transparent;
+  color: var(--danger-color);
+  
+  &:hover, &:focus {
+    background-color: var(--danger-color);
+    color: white;
+  }
+}
+
+.form-control {
+  border-radius: 10px;
+  padding: 0.75rem 1.25rem;
+  border: 2px solid #eee;
+  transition: var(--transition);
+  
+  &:focus {
+    box-shadow: none;
+    border-color: var(--primary-light);
+  }
+}
+
+.alert {
+  border-radius: var(--border-radius);
+  padding: 1rem 1.5rem;
+}
+
+.alert-danger {
+  background-color: var(--primary-light);
+  border-color: var(--primary-color);
+  color: var(--extra-hot-color);
+}
+
+.text-muted {
+  color: var(--text-light) !important;
+}
+
+/* Animation pour les transitions de page */
+.fade-in {
+  animation: fadeIn 0.5s ease-in forwards;
+}
+
+.spicy-bg {
+  position: relative;
+  
+  &::before {
+    content: '🌶️';
+    position: absolute;
+    font-size: 6rem;
+    opacity: 0.06;
+    right: -1rem;
+    top: -2rem;
+    transform: rotate(15deg);
+    z-index: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Classes pour les différents niveaux de piquant */
+.mild {
+  color: var(--mild-color);
+}
+
+.medium {
+  color: var(--medium-color);
+}
+
+.hot {
+  color: var(--hot-color);
+}
+
+.extra-hot {
+  color: var(--extra-hot-color);
+}

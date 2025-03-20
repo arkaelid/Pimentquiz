@@ -1,0 +1,62 @@
+<div class="container fade-in">
+  <h1 class="text-center mb-4">Le Quiz Piquant! 🌶️</h1>
+  
+  <div class="card spicy-bg">
+    <div class="card-header bg-gradient">
+      <h2 class="mb-0">Préparez vos papilles!</h2>
+    </div>
+    <div class="card-body">
+      <p class="text-center text-muted mb-4">🔥 Qui osera relever le défi ? 🔥</p>
+      
+      <div class="participants-list">
+        <div *ngFor="let participant of participants; let i = index; trackBy: trackByFn" class="participant-row mb-3">
+          <div class="input-group">
+            <span class="input-group-text spicy-icon">🌶️</span>
+            <input 
+              type="text" 
+              class="form-control" 
+              [(ngModel)]="participants[i]" 
+              placeholder="Nom du participant audacieux..."
+              aria-label="Nom du participant">
+            
+            <div class="input-group-append">
+              <button 
+                class="btn btn-outline-danger" 
+                type="button" 
+                (click)="removeParticipant(i)"
+                [disabled]="participants.length === 1">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <button 
+        class="btn btn-outline-primary mt-3 mb-4 spicy-button" 
+        (click)="addParticipant()">
+        <i class="bi bi-plus-circle"></i> Ajouter un amateur de piment
+      </button>
+      
+      <div *ngIf="errorMessage" class="alert alert-danger mt-4">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        {{ errorMessage }}
+      </div>
+      
+      <div class="text-center mt-5">
+        <div class="spicy-meter mb-4">
+          <div class="spicy-level mild">Facile</div>
+          <div class="spicy-level medium">Moyen</div>
+          <div class="spicy-level hot">Épicé</div>
+          <div class="spicy-level extra-hot">Brûlant!</div>
+        </div>
+        
+        <button 
+          class="btn btn-primary btn-lg pulse-button" 
+          (click)="startQuiz()">
+          <i class="bi bi-fire me-2"></i> Démarrer le Challenge Piquant!
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

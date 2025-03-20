@@ -1,0 +1,127 @@
+<div class="container fade-in">
+  <div *ngIf="currentQuestion" class="question-container">
+    <div id="question-top" class="quiz-header spicy-bg">
+      <div class="spicy-badge">
+        <span>{{ getDifficultyLabel(currentQuestion.difficulty) }}</span>
+      </div>
+      <h2>{{ getQuestionNumber() }}</h2>
+    </div>
+    
+    <div class="card question-card mb-4">
+      <div class="card-body">
+        <div class="heat-meter">
+          <div class="heat-indicator" [ngStyle]="{'width': getHeatPercentage() + '%'}"></div>
+        </div>
+        
+        <h3 class="card-title">{{ currentQuestion.text }}</h3>
+        
+        <!-- Boutons d'actions pour indice et réponse -->
+        <div class="text-center mt-4" *ngIf="!isAnswerRevealed && !isHintRevealed">
+          <div class="btn-group">
+            <button 
+              class="btn btn-outline-info hint-btn" 
+              (click)="toggleHintReveal()"
+              title="Attention : cela réduira les points à 1 !">
+              <i class="bi bi-lightbulb"></i> Voir indice
+            </button>
+            <button 
+              class="btn btn-outline-primary reveal-btn" 
+              (click)="toggleAnswerReveal()">
+              <i class="bi bi-eye"></i> Révéler la réponse
+            </button>
+          </div>
+          
+          <div class="hint-warning mt-2">
+            <small class="text-muted">L'indice réduit les points à gagner à 1 seulement !</small>
+          </div>
+        </div>
+        
+        <!-- Affichage des choix multiples (indice) -->
+        <div *ngIf="isHintRevealed && !isAnswerRevealed" class="hint-container">
+          <div class="hint-title">
+            <i class="bi bi-lightbulb-fill"></i> Choisissez parmi ces réponses :
+          </div>
+          <div class="choices-container">
+            <div class="row">
+              <div *ngFor="let choice of getShuffledChoices()" class="col-md-6 mb-2">
+                <div class="choice-item">{{ choice }}</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="text-center mt-3">
+            <button 
+              class="btn btn-outline-primary reveal-btn" 
+              (click)="toggleAnswerReveal()">
+              <i class="bi bi-eye"></i> Révéler la réponse
+            </button>
+          </div>
+        </div>
+        
+        <!-- Réponse révélée -->
+        <div *ngIf="isAnswerRevealed" class="answer-container">
+          <div class="answer-box">
+            <div class="answer-label">Réponse:</div>
+            <div class="answer-text">{{ currentQuestion.answer }}</div>
+            <div *ngIf="isHintRevealed" class="text-warning hint-used-warning">
+              <i class="bi bi-exclamation-triangle"></i> 
+              Points réduits à 1 (indice utilisé)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="participants-section" [class.disabled]="!isAnswerRevealed">
+      <h4 class="section-title">
+        <span *ngIf="!isAnswerRevealed">Révélez d'abord la réponse</span>
+        <span *ngIf="isAnswerRevealed">Qui a la bonne réponse ? <i class="bi bi-fire"></i></span>
+      </h4>
+      
+      <div class="row" [class.blurred]="!isAnswerRevealed">
+        <div *ngFor="let participant of participants" class="col-md-4 mb-3">
+          <div class="card participant-card" 
+               [class.selected]="selectedParticipantId === participant.id"
+               [class.disabled]="!isAnswerRevealed"
+               (click)="selectParticipant(participant.id)">
+            <div class="pepper-indicator">
+              <span *ngFor="let i of getScoreArray(participant.score)">🌶️</span>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{ participant.name }}</h5>
+              <div class="score-display">
+                <span class="score-label">Niveau de résistance:</span>
+                <span class="score-value" [ngClass]="getHeatClass(participant.score)">
+                  {{ participant.score }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Option "Aucun vainqueur" -->
+      <div *ngIf="isAnswerRevealed" class="no-winner-section mt-4">
+        <div class="card no-winner-card" 
+             [class.selected]="selectedParticipantId === -1"
+             (click)="selectParticipant(-1)">
+          <div class="card-body text-center">
+            <i class="bi bi-emoji-frown"></i>
+            <h5 class="card-title">Aucun vainqueur</h5>
+            <p class="card-text">Personne n'a trouvé la bonne réponse</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="actions mt-5">
+      <button 
+        class="btn btn-primary hot-button" 
+        [disabled]="!isAnswerRevealed || selectedParticipantId === null || isAnimating"
+        (click)="nextQuestion()">
+        <i class="bi" [ngClass]="isLastQuestion() ? 'bi-trophy' : 'bi-arrow-right'"></i>
+        {{ isLastQuestion() ? 'Voir les vainqueurs!' : 'Question suivante' }}
+      </button>
+    </div>
+  </div>
+</div>

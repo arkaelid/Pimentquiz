@@ -1,0 +1,88 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  background: linear-gradient(135deg, var(--hot-color), var(--extra-hot-color));
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(192, 57, 43, 0.2);
+  position: relative;
+  overflow: hidden;
+  
+  &::before, &::after {
+    content: "🌶️";
+    position: absolute;
+    font-size: 2rem;
+    opacity: 1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+
+  }
+  
+  &::before {
+    left: 10%;
+    top: 20%;
+    transform: rotate(-20deg);
+  }
+  
+  &::after {
+    right: 10%;
+    bottom: 20%;
+    transform: rotate(60deg);
+  }
+}
+
+.app-title {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
+  color: var(--secondary-color);
+  
+  &::before {
+    content: "🌶️";
+    margin-right: 0.5rem;
+  }
+  
+  &::after {
+    content: "🌶️";
+    margin-left: 0.5rem;
+  }
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.footer {
+  background-color: #fff;
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  box-shadow: 0 -2px 10px rgba(192, 57, 43, 0.1);
+  position: relative;
+  z-index: 10;
+  border-top: 3px solid var(--primary-light);
+  
+  p {
+    margin-bottom: 0;
+    
+    &::before, &::after {
+      content: "🌶️";
+      font-size: 0.8rem;
+      margin: 0 0.5rem;
+      opacity: 0.7;
+    }
+  }
+}
